@@ -141,9 +141,9 @@ def print_menu():
 
 
 def main():
+    read_data()
     print_menu()
 
 
 if __name__ == "__main__":
-    read_data()
     main()
