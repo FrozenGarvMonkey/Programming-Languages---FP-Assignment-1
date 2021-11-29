@@ -27,8 +27,10 @@ Functions:
 
 """
 ############################################################################################
-expenses = None
 
+expenses = None #Dataset
+
+#Validates an integer input
 #1,2
 def validate_int(msg):
     while True:
@@ -42,7 +44,7 @@ def validate_int(msg):
         else:
             return intInput
 
-
+#Read .json file into expenses
 def read_data():
     global expenses
     file_name = input("Enter File Name: ")
@@ -61,13 +63,14 @@ def read_data():
         main()
 
 
-
+#Sorts expenses by date and returns a new transformed list
 def sort_by_date():
     try:
         return sorted(expenses,key=lambda x: datetime.strptime(x["date"], "%m/%d/%Y"),reverse=True)
     except ValueError:
         print("Invalid Date Format! Make sure all your data is valid (MM/DD/YYYY).")
 
+#Print all expenses
 #10
 def print_expenses(length):
     print(*['{}'.format(iter) for iter in sort_by_date()[:length]], sep='\n')
@@ -97,7 +100,7 @@ def function_selector(ch):
     return categories[ch]
 
 def find_expenses(ch, val):
-    sorted_exp = function_selector()[ch](val.lower())
+    sorted_exp = function_selector(ch)(val.lower())
     print(*['{}'.format(iter) for iter in sorted_exp], sep='\n') if sorted_exp else print("Could not find that value!")
 
 #8
