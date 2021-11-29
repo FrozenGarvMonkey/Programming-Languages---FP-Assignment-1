@@ -17,10 +17,10 @@ Functions:
 2- Assigning a function to a variable - ✓
 3- Create a list of functions and use that list ✓
 4- Passing functions as arguments ✓
-5- Returning functions 
-6- Mapping 
+5- Returning functions ✓
+6- Mapping ✓ 
 7- Filtering ✓
-8- Reducing 
+8- Reducing ✓ 
 9- Lambdas ✓
 10- List Comprehensions ✓
 11- Recursion ✓
@@ -29,7 +29,7 @@ Functions:
 ############################################################################################
 expenses = None
 
-
+#1,2
 def validate_int(msg):
     while True:
         try:
@@ -68,9 +68,10 @@ def sort_by_date():
     except ValueError:
         print("Invalid Date Format! Make sure all your data is valid (MM/DD/YYYY).")
 
-
+#10
 def print_expenses(length):
     print(*['{}'.format(iter) for iter in sort_by_date()[:length]], sep='\n')
+
 
 def return_by_id(val):
     try:
@@ -79,6 +80,7 @@ def return_by_id(val):
         print("Value is not an Integer!")
         exit()
 
+#7
 def return_by_reference(val):
     return list(filter(lambda x: x["transaction_reference"].lower() == val, sort_by_date()))
 
@@ -88,18 +90,29 @@ def return_by_receiver_name(val):
 def return_by_expense_type(val):
     return list(filter(lambda x: x["expense_type"].lower() == val, sort_by_date()))
 
-def find_expenses(ch, val):
+#3,5
+def function_selector(ch):
     categories = [return_by_id,return_by_reference,return_by_receiver_name,return_by_expense_type]
-    print(*['{}'.format(iter) for iter in categories[ch](val.lower())], sep='\n')
+    return categories[ch]
 
+def find_expenses(ch, val):
+    sorted_exp = function_selector()[ch](val.lower())
+    print(*['{}'.format(iter) for iter in sorted_exp], sep='\n') if sorted_exp else print("Could not find that value!")
+
+#8
+def sum_expenses(val):
+    return reduce(lambda x,y: x+y, map(lambda x: float(x['amount']), return_by_expense_type(val)))
+#6
+def return_expenditure():
+    categories = ["entertainment","health","academics","accomodation","miscellaneous"]
+    return list(zip(categories,map(sum_expenses,categories)))
 
 def calc_expenses():
-    
-    print("")
+    print(*['{}'.format(iter) for iter in return_expenditure()], sep='\n')
 
 
+#1,2,11
 def print_menu():
-    #1, 2, 11
     GetInt = validate_int
     print("1. Print Expenses\n2. Find Transaction\n3. Calculate Expenses\n4. Exit")
     menu_in = GetInt("Select Option: ")
