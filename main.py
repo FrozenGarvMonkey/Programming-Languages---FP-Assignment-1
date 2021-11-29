@@ -71,6 +71,7 @@ def sort_by_date():
 #10
 def print_expenses(length):
     print(*['{}'.format(iter) for iter in sort_by_date()[:length]], sep='\n')
+    print_menu()
 
 
 def return_by_id(val):
@@ -78,7 +79,7 @@ def return_by_id(val):
         return list(filter(lambda x: x["id"] == int(val), sort_by_date()))
     except ValueError:
         print("Value is not an Integer!")
-        main()
+        print_menu()
 
 #7
 def return_by_reference(val):
@@ -109,7 +110,7 @@ def return_expenditure():
 
 def calc_expenses():
     print(*['{}'.format(iter) for iter in return_expenditure()], sep='\n')
-
+    print_menu()
 
 #1,2,11
 def print_menu():
