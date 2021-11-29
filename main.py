@@ -53,11 +53,11 @@ def read_data():
 
     except ValueError:
         print("\nInvalid File Format!")
-        exit()
+        main()
 
     except FileNotFoundError:
         print("\nFile does not exist!")
-        exit()
+        main()
 
     f.close()
 
@@ -78,7 +78,7 @@ def return_by_id(val):
         return list(filter(lambda x: x["id"] == int(val), sort_by_date()))
     except ValueError:
         print("Value is not an Integer!")
-        exit()
+        main()
 
 #7
 def return_by_reference(val):
@@ -141,9 +141,9 @@ def print_menu():
 
 
 def main():
-    read_data()
     print_menu()
 
 
 if __name__ == "__main__":
+    read_data()
     main()
