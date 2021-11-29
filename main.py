@@ -50,6 +50,7 @@ def read_data():
     try:
         f = open(file_name,)
         expenses = json.load(f)
+        f.close()
 
     except ValueError:
         print("\nInvalid File Format!")
@@ -59,7 +60,6 @@ def read_data():
         print("\nFile does not exist!")
         main()
 
-    f.close()
 
 
 def sort_by_date():
