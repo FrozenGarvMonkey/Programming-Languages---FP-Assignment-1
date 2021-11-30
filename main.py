@@ -28,7 +28,7 @@ Functions:
 """
 ############################################################################################
 
-expenses = None #Dataset
+expenses = None #Sample Dataset
 
 #Validates an integer input
 #1,2
@@ -86,13 +86,13 @@ def return_by_id(val):
 
 #7
 def return_by_reference(val):
-    return list(filter(lambda x: x["transaction_reference"].lower() == val, sort_by_date()))
+    return list(filter(lambda x: x["receiver_name"] is not None and x["transaction_reference"].lower() == val, sort_by_date()))
 
 def return_by_receiver_name(val):
-    return list(filter(lambda x: x["receiver_name"].lower() == val, sort_by_date()))
+    return list(filter(lambda x: x["receiver_name"] is not None and x["receiver_name"].lower() == val, sort_by_date()))
 
 def return_by_expense_type(val):
-    return list(filter(lambda x: x["expense_type"].lower() == val, sort_by_date()))
+    return list(filter(lambda x: x["receiver_name"] is not None and x["expense_type"].lower() == val, sort_by_date()))
 
 #3,5
 def function_selector(ch):
@@ -112,7 +112,7 @@ def return_expenditure():
     return list(zip(categories,map(sum_expenses,categories)))
 
 def calc_expenses():
-    print(*['{}'.format(iter) for iter in return_expenditure()], sep='\n')
+    print(*['{0} : {1:.2f}'.format(*iter) for iter in return_expenditure()], sep='\n')
     print_menu()
 
 #1,2,11
