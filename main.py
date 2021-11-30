@@ -24,27 +24,15 @@ Functions:
 9- Lambdas ✓
 10- List Comprehensions ✓
 11- Recursion ✓
-
 """
+# To make your own dataset follow the format:
+# {id: integer, date: MM/DD/YYYY, transaction_reference: string, receiver_name: string, amount: float, expense_type:{"Entertainment" | "Health","Academics" | "Accomodation" | "Miscellaneous"}} 
 ############################################################################################
 
-expenses = None #Sample Dataset
+# Randomly Generated Dataset
+expenses = None 
 
-#Validates an integer input
-#1,2
-def validate_int(msg):
-    while True:
-        try:
-            intInput = int(input(msg))
-
-        except ValueError:
-            print("\nInvalid Input!\n")
-            continue
-        
-        else:
-            return intInput
-
-#Read .json file into expenses
+#Read a .json file into expenses
 def read_data():
     global expenses
     file_name = input("Enter File Name: ")
@@ -62,6 +50,18 @@ def read_data():
         print("\nFile does not exist!")
         main()
 
+#Validates an Integer Input
+def validate_int(msg):
+    while True:
+        try:
+            intInput = int(input(msg))
+
+        except ValueError:
+            print("\nInvalid Input!\n")
+            continue
+        
+        else:
+            return intInput
 
 #Sorts expenses by date and returns a new transformed list
 def sort_by_date():
@@ -69,14 +69,14 @@ def sort_by_date():
         return sorted(expenses,key=lambda x: datetime.strptime(x["date"], "%m/%d/%Y"),reverse=True)
     except ValueError:
         print("Invalid Date Format! Make sure all your data is valid (MM/DD/YYYY).")
+        main()
 
-#Print all expenses
-#10
+#Print all expenses based on input length
 def print_expenses(length):
     print(*['{}'.format(iter) for iter in sort_by_date()[:length]], sep='\n')
     print_menu()
 
-
+#Filters dataset by ID
 def return_by_id(val):
     try:
         return list(filter(lambda x: x["id"] == int(val), sort_by_date()))
@@ -84,41 +84,47 @@ def return_by_id(val):
         print("Value is not an Integer!")
         print_menu()
 
-#7
+#Filters dataset by Transaction Reference
 def return_by_reference(val):
-    return list(filter(lambda x: x["receiver_name"] is not None and x["transaction_reference"].lower() == val, sort_by_date()))
+    return list(filter(lambda x: x["transaction_reference"] is not None and x["transaction_reference"].casefold() == val.casefold(), sort_by_date()))
 
+#Filters dataset by Receiver's Name
 def return_by_receiver_name(val):
-    return list(filter(lambda x: x["receiver_name"] is not None and x["receiver_name"].lower() == val, sort_by_date()))
+    return list(filter(lambda x: x["receiver_name"] is not None and x["receiver_name"].casefold() == val.casefold(), sort_by_date()))
 
+#Filters dataset by Tyoe of Expense
 def return_by_expense_type(val):
-    return list(filter(lambda x: x["receiver_name"] is not None and x["expense_type"].lower() == val, sort_by_date()))
+    return list(filter(lambda x: x["expense_type"] is not None and x["expense_type"].casefold() == val.casefold(), sort_by_date()))
 
-#3,5
+#Returns a selected function from an array
 def function_selector(ch):
     categories = [return_by_id,return_by_reference,return_by_receiver_name,return_by_expense_type]
     return categories[ch]
 
+#Prints the filtered expenses
 def find_expenses(ch, val):
     sorted_exp = function_selector(ch)(val.lower())
     print(*['{}'.format(iter) for iter in sorted_exp], sep='\n') if sorted_exp else print("Could not find that value!")
+    print_menu()
 
-#8
+#Returns overall expenditure of the dataset by category
 def sum_expenses(val):
     return reduce(lambda x,y: x+y, map(lambda x: float(x['amount']), return_by_expense_type(val)))
-#6
+
+#Returns a list of all categories and their expenditure
 def return_expenditure():
-    categories = ["entertainment","health","academics","accomodation","miscellaneous"]
+    categories = ["Entertainment","Health","Academics","Accomodation","Miscellaneous"]
     return list(zip(categories,map(sum_expenses,categories)))
 
+#Prints all categories and their expenditure
 def calc_expenses():
     print(*['{0} : {1:.2f}'.format(*iter) for iter in return_expenditure()], sep='\n')
     print_menu()
 
-#1,2,11
+#A recursive menu function
 def print_menu():
     GetInt = validate_int
-    print("1. Print Expenses\n2. Find Transaction\n3. Calculate Expenses\n4. Exit")
+    print("\n1. Print Expenses\n2. Find Transaction\n3. Calculate Expenses\n4. Exit")
     menu_in = GetInt("Select Option: ")
 
     if menu_in == 1:
