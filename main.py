@@ -8,25 +8,11 @@ import json
 # Requirements
 # 1. Print Expenses
 # 2. Find SPECIFIC Expense
-# 3. Calculate Expenses
+# 3. Calculate Expenses based on category
 
-"""
-Functions:
-
-1- Separating functions and data - ✓
-2- Assigning a function to a variable - ✓
-3- Create a list of functions and use that list ✓
-4- Passing functions as arguments ✓
-5- Returning functions ✓
-6- Mapping ✓ 
-7- Filtering ✓
-8- Reducing ✓ 
-9- Lambdas ✓
-10- List Comprehensions ✓
-11- Recursion ✓
-"""
 # To make your own dataset follow the format:
 # {id: integer, date: MM/DD/YYYY, transaction_reference: string, receiver_name: string, amount: float, expense_type:{"Entertainment" | "Health","Academics" | "Accomodation" | "Miscellaneous"}} 
+
 ############################################################################################
 
 # Randomly Generated Dataset
