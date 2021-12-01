@@ -54,15 +54,12 @@ def read_data():
 def validate_int(msg):
     while True:
         try:
-            intInput = int(input(msg))
+            return int(input(msg))
 
         except ValueError:
             print("\nInvalid Input!\n")
             continue
         
-        else:
-            return intInput
-
 #Sorts expenses by date and returns a new transformed list
 def sort_by_date():
     try:
