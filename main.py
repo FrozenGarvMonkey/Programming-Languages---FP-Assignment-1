@@ -100,7 +100,7 @@ def function_selector(ch):
 
 #Prints the filtered expenses
 def find_expenses(ch, val):
-    sorted_exp = function_selector(ch)(val.lower())
+    sorted_exp = function_selector(ch)(val)
     print(*['{}'.format(iter) for iter in sorted_exp], sep='\n') if sorted_exp else print("Could not find that value!")
     print_menu()
 
