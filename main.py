@@ -132,7 +132,7 @@ def print_menu():
 
     elif menu_in == 2:
         ch = -1
-        while not (ch >= 0 and ch <= 4):
+        while not (ch > 0 and ch <= 4):
             ch = GetInt("\n1. Transaction ID\n2. Transaction Reference\n3. Receiver Name\n4. Expense Type\n\nChoose a Category:")
         find_expenses(ch-1, input("\nEnter a value to search for: "))
 
